@@ -1,10 +1,10 @@
 CinePlusApp.
-1. Caso elegido y alcance
+<u>1. Caso elegido y alcance</u>
 
 El proyecto elegido corresponde a CinePlus, una aplicación tipo streaming enfocada en la visualización y gestión de contenido audiovisual.
 En este entregable (EP3) se trabajó principalmente en el diseño/UI, las validaciones de formularios, la navegación entre pantallas, la gestión del estado, la persistencia local y el uso de recursos nativos del dispositivo.
 
-2. Requisitos y ejecución
+<u>2. Requisitos y ejecución</u>
 
 Para el desarrollo se utilizaron las siguientes tecnologías y librerías:
 
@@ -28,7 +28,7 @@ Sincronizar Gradle y esperar a que finalice la configuración.
 
 Seleccionar el perfil “app” y ejecutar en un emulador Android.
 
-3. Arquitectura y flujo
+<u>3. Arquitectura y flujo</u>
 
 La estructura del proyecto se organizó en las siguientes carpetas principales:
 
@@ -49,7 +49,7 @@ usuario → acción → estado → UI.
 Navegación:
 Se utilizó un stack simple mediante Navigation Component, con control del backstack para asegurar el retorno correcto a la pantalla de inicio de sesión.
 
-4. Funcionalidades principales
+<u>4. Funcionalidades principales</u>
 
 Formulario validado para el inicio de sesión (usuario demo).
 
