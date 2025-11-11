@@ -8,9 +8,9 @@ En esta proyecto se trabajó principalmente en el diseño/UI, las validaciones d
 
 Para el desarrollo se utilizaron las siguientes tecnologías y librerías:
 
-Kotlin como lenguaje principal.
+**Kotlin como lenguaje principal.
 
-Android Studio como entorno de desarrollo.
+**Android Studio como entorno de desarrollo.
 
 Jetpack Compose y Material 3 para la interfaz de usuario.
 
