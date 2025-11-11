@@ -1,4 +1,4 @@
-##CinePlusApp.
+CinePlusApp.
 
 <u>1. Caso elegido y alcance</u>
 
