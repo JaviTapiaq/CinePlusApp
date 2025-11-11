@@ -1,0 +1,41 @@
+<CinePlus>
+##1 Caso elegido y alcance
+
+Caso: CinePlus 
+Alcance EP3: Diseño/UI, validaciones, navegación, estado, persistencia y recursos nativos.
+
+##2 Requisitos y ejecución
+Se usó: Kotlin, Android Studio, Jetpack Compose, Material 3, ViewModel, Navigation Component.
+
+##3 Instrucciones:
+1. Descarga el repositorio desde GitHub.
+2. Abre el proyecto en Android Studio.
+3. Sincroniza Gradle y espera que la configuración finalice.
+
+## Para la ejecución:
+Selecciona el perfil "app".
+Ejecuta en emulador Android.
+
+##4 Arquitectura y flujo
+Estructura de carpetas principales:
+- ui/screens → pantallas principales (Login, Perfil)
+- viewmodel → lógica del login y gestión del estado
+- navigation → rutas y flujo entre pantallas
+- theme → colores y tipografía personalizada
+- assets → datos locales de usuario
+
+Gestión de estado:
+- Estrategia local con ViewModel.
+- Flujo de datos unidireccional: usuario → acción → estado → UI.
+
+Navegación:
+- Stack simple entre pantallas usando Navigation Component.
+- Control del backstack para retorno correcto a inicio de sesión.
+
+##5 Funcionalidades
+- Formulario validado para inicio de sesión (usuario demo).
+- Navegación entre pantallas con control de sesión.
+- Gestión de estado visual (carga, éxito, error).
+- Persistencia local del usuario (sin conexión a servidor).
+- Almacenamiento de imagen de perfil en recurso local.
+- Uso de recursos nativos: cámara y galería, con permisos y fallback.

@@ -1,0 +1,70 @@
+package com.example.cineplus.ui.navigation
+
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.platform.LocalContext
+import com.example.cineplus.ui.screens.*
+import com.example.cineplus.viewmodel.ProfileViewModel
+import com.example.cineplus.viewmodel.ProfileViewModelFactory
+import com.example.cineplus.repository.UserRepository
+import com.example.cineplus.data.DatabaseProvider
+
+sealed class Screen(val route: String) {
+    object Start : Screen("start")
+    object Login : Screen("login")
+    object Register : Screen("register")
+    object Home : Screen("home")
+    object Profile : Screen("profile")
+}
+
+@Composable
+fun NavGraph(navController: NavHostController) {
+    val context = LocalContext.current
+    val db = DatabaseProvider.getDatabase(context)
+    val userRepository = UserRepository(db.userDao())
+
+    NavHost(
+        navController = navController,
+        startDestination = Screen.Start.route
+    ) {
+        composable(Screen.Start.route) {
+            StartScreen(
+                onNavigateToLogin = { navController.navigate(Screen.Login.route) }
+            )
+        }
+
+        composable(Screen.Login.route) {
+            LoginScreen(
+                onLoginSuccess = { navController.navigate(Screen.Home.route) },
+                onNavigateToRegister = { navController.navigate(Screen.Register.route) }
+            )
+        }
+
+        composable(Screen.Register.route) {
+            RegisterScreen(
+                onNavigateToLogin = { navController.navigate(Screen.Login.route) }
+            )
+        }
+
+        composable(Screen.Home.route) {
+            HomeScreen(
+                onProfileClick = { navController.navigate(Screen.Profile.route) }
+            )
+        }
+
+        composable(Screen.Profile.route) {
+            val profileViewModel: ProfileViewModel = viewModel(
+                factory = ProfileViewModelFactory(userRepository)
+            )
+            ProfileScreen(
+                navController = navController,
+                viewModel = profileViewModel
+            )
+        }
+    }
+}
+
+
