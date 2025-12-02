@@ -1,5 +1,6 @@
 package com.example.cineplus.ui.navigation
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -9,8 +10,8 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.cineplus.ui.screens.*
 import com.example.cineplus.viewmodel.ProfileViewModel
 import com.example.cineplus.viewmodel.ProfileViewModelFactory
-import com.example.cineplus.repository.UserRepository
 import com.example.cineplus.data.DatabaseProvider
+import com.example.cineplus.repository.AuthRepository
 
 sealed class Screen(val route: String) {
     object Start : Screen("start")
@@ -23,9 +24,6 @@ sealed class Screen(val route: String) {
 @Composable
 fun NavGraph(navController: NavHostController) {
     val context = LocalContext.current
-    val db = DatabaseProvider.getDatabase(context)
-    val userRepository = UserRepository(db.userDao())
-
     NavHost(
         navController = navController,
         startDestination = Screen.Start.route
@@ -56,9 +54,12 @@ fun NavGraph(navController: NavHostController) {
         }
 
         composable(Screen.Profile.route) {
+            val repo = AuthRepository(context)
+
             val profileViewModel: ProfileViewModel = viewModel(
-                factory = ProfileViewModelFactory(userRepository)
+                factory = ProfileViewModelFactory(repo)
             )
+
             ProfileScreen(
                 navController = navController,
                 viewModel = profileViewModel

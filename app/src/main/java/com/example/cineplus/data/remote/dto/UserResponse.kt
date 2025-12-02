@@ -1,8 +1,22 @@
 package com.example.cineplus.data.remote.dto
 
 
-data class UserResponse(
-    val id: Int,
-    val nombreUsuario: String,
-    val correo: String
+import com.google.gson.annotations.SerializedName
+
+/**
+ * DTO para la respuesta de lista de usuarios
+ * La API devuelve un objeto con "users" y metadata de paginación
+ */
+data class UsersResponse(
+    @SerializedName("users")
+    val users: List<MeResponse>,
+
+    @SerializedName("total")
+    val total: Int,  // Total de usuarios en la base de datos
+
+    @SerializedName("skip")
+    val skip: Int,   // Cuántos usuarios se saltaron (paginación)
+
+    @SerializedName("limit")
+    val limit: Int   // Límite de usuarios por página
 )

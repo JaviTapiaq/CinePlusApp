@@ -2,15 +2,15 @@ package com.example.cineplus.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.cineplus.repository.UserRepository
+import com.example.cineplus.repository.AuthRepository
 
 class ProfileViewModelFactory(
-    private val userRepository: UserRepository
+    private val repo: AuthRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {
-            return ProfileViewModel(userRepository) as T
+            return ProfileViewModel(repo) as T
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
+        throw IllegalArgumentException("Unknown ViewModel")
     }
 }

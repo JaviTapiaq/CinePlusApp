@@ -62,30 +62,35 @@ fun LoginScreen(
 
         Button(
             onClick = {
-                if (username.isNotBlank() && password.isNotBlank()) {
-                    isLoading = true
-                    viewModel.login(
-                        username,
-                        password,
-                        onSuccess = {
-                            isLoading = false
-                            Toast.makeText(context, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                            onLoginSuccess()
-                        },
-                        onError = { error ->
-                            isLoading = false
-                            Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
-                        }
-                    )
-                } else {
+                if (username.isBlank() || password.isBlank()) {
                     Toast.makeText(context, "Completa todos los campos", Toast.LENGTH_SHORT).show()
+                    return@Button
                 }
+
+                isLoading = true
+
+                viewModel.login(
+                    username,
+                    password,
+                    onSuccess = {
+                        isLoading = false
+                        Toast.makeText(context, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                        onLoginSuccess()
+                    },
+                    onError = { msg ->
+                        isLoading = false
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
+                )
             },
             modifier = Modifier.fillMaxWidth(),
             enabled = !isLoading
         ) {
             if (isLoading) {
-                CircularProgressIndicator(modifier = Modifier.size(20.dp), color = MaterialTheme.colorScheme.onPrimary)
+                CircularProgressIndicator(
+                    modifier = Modifier.size(20.dp),
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
             } else {
                 Text("Iniciar sesión")
             }

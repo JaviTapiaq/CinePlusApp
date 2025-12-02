@@ -17,8 +17,12 @@ fun ProfileScreen(
     navController: NavController,
     viewModel: ProfileViewModel
 ) {
-    val userState = viewModel.currentUser.collectAsState()
-    val user = userState.value
+    val userState = viewModel.user.collectAsState()
+
+    // Llamar API /me al entrar
+    LaunchedEffect(Unit) {
+        viewModel.loadUser()
+    }
 
     Scaffold { paddingValues ->
         Box(
@@ -27,6 +31,8 @@ fun ProfileScreen(
                 .padding(paddingValues),
             contentAlignment = Alignment.Center
         ) {
+
+            val user = userState.value
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Icon(
                     imageVector = Icons.Default.AccountCircle,
@@ -40,8 +46,10 @@ fun ProfileScreen(
                     style = MaterialTheme.typography.headlineMedium
                 )
                 Spacer(modifier = Modifier.height(12.dp))
+
                 Text("Nombre: ${user?.username ?: "Invitado"}")
                 Text("ID: ${user?.id ?: "N/A"}")
+
                 Spacer(modifier = Modifier.height(24.dp))
 
                 Button(onClick = {

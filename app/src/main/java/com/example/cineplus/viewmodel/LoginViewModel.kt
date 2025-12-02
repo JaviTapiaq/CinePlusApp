@@ -18,25 +18,29 @@ class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
     /**
      * Intenta iniciar sesión con las credenciales dadas
      */
-    fun login(username: String, password: String) {
+    fun login(
+        username: String,
+        password: String,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
         viewModelScope.launch {
-            val success = authRepository.login(username, password)
-            if (success) {
-                _isLoggedIn.value = true
-                _loginError.value = null
-            } else {
-                _isLoggedIn.value = false
-                _loginError.value = "Usuario o contraseña incorrectos"
-            }
+            authRepository.login(username, password, onSuccess, onError)
         }
     }
+
 
     /**
      * Registra un nuevo usuario
      */
-    fun register(username: String, password: String) {
+    fun register(
+        username: String,
+        password: String,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
         viewModelScope.launch {
-            authRepository.register(username, password)
+            authRepository.register(username, password, onSuccess, onError)
         }
     }
 
@@ -48,13 +52,3 @@ class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
         _loginError.value = null
     }
 }
-
-
-
-
-
-
-
-
-
-

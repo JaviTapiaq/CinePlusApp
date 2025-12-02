@@ -1,10 +1,13 @@
 package com.example.cineplus.data.remote.dto
 
-data class LoginResponse(
-    val nombreUsuario: String,
-    val firstName: String,
-    val lastName: String,
-    val correo: String,
-    val accessToken: String
-)
+import com.google.gson.annotations.SerializedName
 
+/**
+ * DTO para la respuesta de login
+ * Datos que se RECIBEN del servidor tras login exitoso
+ */
+
+data class LoginResponse(
+    @SerializedName("authToken")
+    val authToken: String
+)

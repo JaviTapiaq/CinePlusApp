@@ -2,11 +2,7 @@ package com.example.cineplus.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-/**
- * DTO para la petición de login
- * Datos que ENVIAMOS al servidor
- */
-data class LoginRequest(
+data class RegisterRequest(
     @SerializedName("username")
     val username: String,
 

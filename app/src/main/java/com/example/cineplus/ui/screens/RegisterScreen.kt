@@ -61,10 +61,19 @@ fun RegisterScreen(onNavigateToLogin: () -> Unit) {
             onClick = {
                 if (username.isNotBlank() && password.isNotBlank()) {
                     isLoading = true
-                    viewModel.register(username, password)
-                    isLoading = false
-                    Toast.makeText(context, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show()
-                    onNavigateToLogin()
+                    viewModel.register(
+                        username,
+                        password,
+                        onSuccess = {
+                            isLoading = false
+                            Toast.makeText(context, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show()
+                            onNavigateToLogin()
+                        },
+                        onError = { error ->
+                            isLoading = false
+                            Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+                        }
+                    )
                 } else {
                     Toast.makeText(context, "Completa todos los campos", Toast.LENGTH_SHORT).show()
                 }
@@ -73,11 +82,16 @@ fun RegisterScreen(onNavigateToLogin: () -> Unit) {
             enabled = !isLoading
         ) {
             if (isLoading) {
-                CircularProgressIndicator(modifier = Modifier.size(20.dp), color = MaterialTheme.colorScheme.onPrimary)
+                CircularProgressIndicator(
+                    modifier = Modifier.size(20.dp),
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
             } else {
                 Text("Registrarse")
             }
         }
+
+        Spacer(modifier = Modifier.height(12.dp))
 
         TextButton(onClick = onNavigateToLogin) {
             Text("¿Ya tienes cuenta? Inicia sesión")
