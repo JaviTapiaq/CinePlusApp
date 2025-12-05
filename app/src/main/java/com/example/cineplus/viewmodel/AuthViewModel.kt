@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cineplus.repository.AuthRepository
-
 import kotlinx.coroutines.launch
 
 class AuthViewModel(context: Context) : ViewModel() {

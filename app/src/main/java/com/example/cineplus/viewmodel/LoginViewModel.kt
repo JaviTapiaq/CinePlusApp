@@ -20,12 +20,21 @@ class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
      */
     fun login(
         username: String,
-        password: String,
-        onSuccess: () -> Unit,
-        onError: (String) -> Unit
+        password: String
     ) {
         viewModelScope.launch {
-            authRepository.login(username, password, onSuccess, onError)
+            authRepository.login(
+                username = username,
+                password = password,
+                onSuccess = {
+                    _isLoggedIn.value = true
+                    _loginError.value = null
+                },
+                onError = {
+                    _isLoggedIn.value = false
+                    _loginError.value = "Usuario o contraseña incorrectos"
+                }
+            )
         }
     }
 
@@ -35,12 +44,19 @@ class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
      */
     fun register(
         username: String,
-        password: String,
-        onSuccess: () -> Unit,
-        onError: (String) -> Unit
+        password: String
     ) {
         viewModelScope.launch {
-            authRepository.register(username, password, onSuccess, onError)
+            authRepository.register(
+                username = username,
+                password = password,
+                onSuccess = {
+                    // Puedes manejar el éxito del registro aquí si es necesario
+                },
+                onError = {
+                    // Puedes manejar el error del registro aquí si es necesario
+                }
+            )
         }
     }
 
@@ -48,7 +64,10 @@ class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
      * Cierra sesión y resetea estados
      */
     fun logout() {
-        _isLoggedIn.value = false
-        _loginError.value = null
+        viewModelScope.launch {
+            authRepository.logout()
+            _isLoggedIn.value = false
+            _loginError.value = null
+        }
     }
 }
