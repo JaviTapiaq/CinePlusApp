@@ -3,10 +3,6 @@ package com.example.cineplus.repository
 
 import android.content.Context
 import com.example.cineplus.data.local.SessionManager
-import okhttp3.Interceptor
-import okhttp3.Response
-import kotlinx.coroutines.runBlocking
-import com.example.cineplus.data.remote.api.ApiService
 import com.example.cineplus.data.remote.dto.LoginRequest
 import com.example.cineplus.data.remote.dto.RegisterRequest
 import com.example.cineplus.data.remote.dto.MeResponse

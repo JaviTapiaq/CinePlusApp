@@ -1,6 +1,7 @@
 package com.example.cineplus.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cineplus.repository.MoviesRepository
@@ -21,10 +22,12 @@ class MoviesViewModel(context: Context) : ViewModel() {
 
     fun loadMovies() {
         viewModelScope.launch {
+
             try {
                 _movies.value = repo.getMovies()
             } catch (e: Exception) {
                 e.printStackTrace()
+
             }
         }
     }

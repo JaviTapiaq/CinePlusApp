@@ -25,8 +25,6 @@ interface ApiService {
     @GET("auth/me")
     suspend fun getCurrentUser(): MeResponse
 
-    // 🎬 MOVIES
-    @GET("movies")
-    suspend fun getMovies(): List<MovieDto>
-
 }
+
+

@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(onProfileClick: () -> Unit) {
+fun HomeScreen(onProfileClick: () -> Unit, onMoviesClick: () -> Unit) {
     Scaffold { paddingValues ->
         Box(
             modifier = Modifier
@@ -27,6 +27,12 @@ fun HomeScreen(onProfileClick: () -> Unit) {
 
                 Button(onClick = onProfileClick) {
                     Text("Ver perfil")
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Button(onClick = onMoviesClick) {
+                    Text("Ver películas")
                 }
             }
         }

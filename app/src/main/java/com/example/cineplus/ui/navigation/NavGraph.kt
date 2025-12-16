@@ -1,6 +1,5 @@
 package com.example.cineplus.ui.navigation
 
-import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -10,7 +9,6 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.cineplus.ui.screens.*
 import com.example.cineplus.viewmodel.ProfileViewModel
 import com.example.cineplus.viewmodel.ProfileViewModelFactory
-import com.example.cineplus.data.DatabaseProvider
 import com.example.cineplus.repository.AuthRepository
 
 sealed class Screen(val route: String) {
@@ -19,6 +17,9 @@ sealed class Screen(val route: String) {
     object Register : Screen("register")
     object Home : Screen("home")
     object Profile : Screen("profile")
+
+    object Movies : Screen("movies")
+
 }
 
 @Composable
@@ -49,7 +50,14 @@ fun NavGraph(navController: NavHostController) {
 
         composable(Screen.Home.route) {
             HomeScreen(
-                onProfileClick = { navController.navigate(Screen.Profile.route) }
+                onProfileClick = { navController.navigate(Screen.Profile.route) },
+                onMoviesClick = { navController.navigate(Screen.Movies.route) }
+            )
+        }
+
+        composable(Screen.Movies.route) {
+            MoviesScreen(
+                onBack = { navController.popBackStack() }
             )
         }
 

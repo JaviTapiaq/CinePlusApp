@@ -12,11 +12,13 @@ import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
+import org.mockito.kotlin.any
+import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class gitLoginViewModelTest {
+class LoginViewModelTest {
 
     private lateinit var viewModel: LoginViewModel
     private val authRepository: AuthRepository = mock()
@@ -37,7 +39,10 @@ class gitLoginViewModelTest {
     // 1️ Login exitoso
     @Test
     fun `login exitoso debe poner isLoggedIn en true`() = runTest {
-        whenever(authRepository.login("user", "pass")).thenReturn(true)
+        whenever(authRepository.login(eq("user"), eq("pass"), any(), any())).then {
+            val onSuccess = it.getArgument<() -> Unit>(2)
+            onSuccess()
+        }
 
         viewModel.login("user", "pass")
 
@@ -48,7 +53,10 @@ class gitLoginViewModelTest {
     // 2️ Login fallido
     @Test
     fun `login fallido debe poner isLoggedIn en false`() = runTest {
-        whenever(authRepository.login("user", "wrong")).thenReturn(false)
+        whenever(authRepository.login(eq("user"), eq("wrong"), any(), any())).then {
+            val onError = it.getArgument<(String) -> Unit>(3)
+            onError("Error")
+        }
 
         viewModel.login("user", "wrong")
 
@@ -58,7 +66,10 @@ class gitLoginViewModelTest {
     // 3️ Login fallido debe asignar mensaje de error
     @Test
     fun `login fallido debe asignar mensaje de error`() = runTest {
-        whenever(authRepository.login("user", "wrong")).thenReturn(false)
+        whenever(authRepository.login(eq("user"), eq("wrong"), any(), any())).then {
+            val onError = it.getArgument<(String) -> Unit>(3)
+            onError("Credenciales incorrectas")
+        }
 
         viewModel.login("user", "wrong")
 
@@ -69,7 +80,10 @@ class gitLoginViewModelTest {
     @Test
     fun `logout debe limpiar isLoggedIn y loginError`() = runTest {
         // Simular usuario logeado
-        whenever(authRepository.login("user", "pass")).thenReturn(true)
+        whenever(authRepository.login(eq("user"), eq("pass"), any(), any())).then {
+            val onSuccess = it.getArgument<() -> Unit>(2)
+            onSuccess()
+        }
         viewModel.login("user", "pass")
 
         viewModel.logout()
@@ -91,7 +105,10 @@ class gitLoginViewModelTest {
     // 6️ Si login retorna false no debe activar isLoggedIn
     @Test
     fun `login false no debe activar isLoggedIn`() = runTest {
-        whenever(authRepository.login("user", "123")).thenReturn(false)
+        whenever(authRepository.login(eq("user"), eq("123"), any(), any())).then {
+            val onError = it.getArgument<(String) -> Unit>(3)
+            onError("Error")
+        }
 
         viewModel.login("user", "123")
 

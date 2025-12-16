@@ -72,11 +72,7 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            Text(
-                text = "ID: ${user?.id ?: "N/A"}",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+
 
             Spacer(modifier = Modifier.height(32.dp))
 
@@ -88,7 +84,9 @@ fun ProfileScreen(
                     }
                 }
             ) {
-                Text("Ir al inicio")
+
+                Text("Volver al inicio")
+
             }
 
             Spacer(modifier = Modifier.height(12.dp))
