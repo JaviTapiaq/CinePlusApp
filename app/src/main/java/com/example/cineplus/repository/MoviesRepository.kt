@@ -5,17 +5,11 @@ import com.example.cineplus.data.remote.RetrofitClient
 import com.example.cineplus.data.remote.api.ApiService
 import com.example.cineplus.data.remote.dto.MovieDto
 
-class MovieRepository(context: Context) {
+class MoviesRepository(context: Context) {
 
-    private val api = RetrofitClient
-        .create(context)
-        .create(ApiService::class.java)
+    private val api: ApiService = RetrofitClient.create(context)
 
-    suspend fun getMovies(): Result<List<MovieDto>> {
-        return try {
-            Result.success(api.getMovies())
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+    suspend fun getMovies(): List<MovieDto> {
+        return api.getMovies()
     }
 }

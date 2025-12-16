@@ -21,10 +21,10 @@ class MoviesViewModel(context: Context) : ViewModel() {
 
     fun loadMovies() {
         viewModelScope.launch {
-            repo.getMovies().onSuccess { lista ->
-                _movies.value = lista
-            }.onFailure {
-                it.printStackTrace()
+            try {
+                _movies.value = repo.getMovies()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

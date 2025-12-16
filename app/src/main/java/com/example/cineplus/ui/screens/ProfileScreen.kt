@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import com.example.cineplus.viewmodel.ProfileViewModel
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Edit
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -19,51 +20,97 @@ fun ProfileScreen(
 ) {
     val userState = viewModel.user.collectAsState()
 
-    // Llamar API /me al entrar
     LaunchedEffect(Unit) {
         viewModel.loadUser()
     }
 
-    Scaffold { paddingValues ->
-        Box(
+    val user = userState.value
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text("Perfil")
+                },
+                actions = {
+                    IconButton(
+                        onClick = {
+                            navController.navigate("edit_profile")
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "Editar perfil"
+                        )
+                    }
+                }
+            )
+        }
+    ) { paddingValues ->
+
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues),
-            contentAlignment = Alignment.Center
+                .padding(paddingValues)
+                .padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            val user = userState.value
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "Foto de perfil",
-                    modifier = Modifier.size(120.dp)
-                )
+            Icon(
+                imageVector = Icons.Default.AccountCircle,
+                contentDescription = "Foto de perfil",
+                modifier = Modifier.size(140.dp),
+                tint = MaterialTheme.colorScheme.primary
+            )
 
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "👤 Perfil de Usuario",
-                    style = MaterialTheme.typography.headlineMedium
-                )
-                Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-                Text("Nombre: ${user?.username ?: "Invitado"}")
-                Text("ID: ${user?.id ?: "N/A"}")
+            Text(
+                text = user?.username ?: "Invitado",
+                style = MaterialTheme.typography.headlineSmall
+            )
 
-                Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(4.dp))
 
-                Button(onClick = {
+            Text(
+                text = "ID: ${user?.id ?: "N/A"}",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                    navController.navigate("home") {
+                        popUpTo("profile") { inclusive = true }
+                    }
+                }
+            ) {
+                Text("Ir al inicio")
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            OutlinedButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
                     viewModel.logout()
                     navController.navigate("login") {
                         popUpTo("home") { inclusive = true }
                     }
-                }) {
-                    Text("Cerrar sesión")
-                }
+                },
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = MaterialTheme.colorScheme.error
+                )
+            ) {
+                Text("Cerrar sesión")
             }
         }
     }
 }
+
 
 
 
