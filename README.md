@@ -1,9 +1,14 @@
 CinePlusApp.
 
+Integrantes 
+- Javiera Tapia
+- Joaquín Diez
+
+
 <u>1. Caso elegido y alcance</u>
 
   El proyecto elegido corresponde a CinePlus, una aplicación tipo streaming enfocada en la visualización y gestión de contenido audiovisual.
-  En esta proyecto se trabajó principalmente en el diseño/UI, las validaciones de formularios, la navegación entre pantallas, la gestión del estado, la persistencia local y el uso de recursos nativos del dispositivo.
+  En esta proyecto se trabajó principalmente en el diseño/UI, las validaciones de formularios, la navegación entre pantallas, la gestión del estado, la persistencia local y el uso de recursos nativos del dispositivo. Se gestiona la autenticación de usuarios mediante un backend basado en Xano.
 
 <u>2. Requisitos y ejecución</u>
 
@@ -63,3 +68,36 @@ Se usó un stack simple mediante Navigation Component, con control del backstack
 - Almacenamiento de la imagen de perfil como recurso local.
 
 - Uso de recursos nativos del dispositivo, como cámara y galería, incluyendo permisos y mecanismos de respaldo.
+
+- Búsqueda de películas por título.
+  
+- Visualizacion de cartelera
+  
+- Visualización de información de las películas:
+  - Imagen
+  - Categoría
+  - Restricción de edad
+  - Duración
+  - Horarios
+    
+- Consumo de API REST desde backend NoSQL --> XANO.
+  
+- Interfaz moderna y responsiva usando Jetpack Compose.
+
+
+## Endpoints utilizados
+Base_url: https://x8ki-letl-twmt.n7.xano.io/api:KxXEX5K_/
+
+| Método | Endpoint       | Descripción |
+|------|---------------|-------------|
+| POST | /auth/login   | Inicio de sesión |
+| POST | /auth/signup  | Registro de usuario |
+| GET  | /auth/me      | Obtener usuario autenticado |
+
+Base_url: https://x8ki-letl-twmt.n7.xano.io/api:KxXEX5K_/
+| Método | Endpoint | Descripción |
+|------|----------|-------------|
+| GET  | /movies  | Obtener listado de películas |
+
+
+
