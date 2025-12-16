@@ -5,6 +5,10 @@
     <!-- Permiso de internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Permisos de camara -->
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
 
     <application
         android:allowBackup="true"
