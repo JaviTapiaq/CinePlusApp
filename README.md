@@ -28,7 +28,7 @@ Integrantes
 
 1.Descargar el repositorio desde GitHub.
 
-2.Abrir el proyecto en Android Studio.
+2.Clonar el proyecto en Android Studio --> git clone https://github.com/JaviTapiaq/CinePlusApp.git
 
 3.Sincronizar Gradle y esperar a que finalice la configuración.
 
